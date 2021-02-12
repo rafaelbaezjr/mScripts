@@ -1,0 +1,481 @@
+#!/usr/bin/env bash
+#: Title          : Download software
+#: Date           : 12.28.19
+#: Author         : Rafael Baez
+#: Version        : 1.0
+#: Description    :
+#: Options        :
+# ------------------------------------------------------------------------------
+function mSoftware() {
+  echo "#======================================================================"
+  echo "# Software Avaliable for Download."
+  echo "#======================================================================"
+  echo "01. Bash              02. Nano                   19. Spotify"
+  echo "03. Nginx             04. Httpd with ARP         20. GO Language"
+  echo "05. Coreutils         06. Binutils               21. Yarn"
+  echo "07. Texinfo           08. Less                   22. Android ADB"
+  echo "09. Gawk              10. Libtool                23. Theme: Flat-Remix"
+  echo "11. Lib libextractor  12. Lib libevent           24. Kernels Update"
+  echo "13. Qt 5 Installer    14. Line Edit, libedit     25. Calibre"
+  echo "15. GNU MAKE          16. LibreOffice 6          26. Automake Autoconf Libtool"
+  echo "17. PHP               18. Core Bin Texinfo Utils 27. NODE NPM NPV"
+  echo "Enter an astrick (*) to exit."
+
+  read reply
+  case $reply in
+  1 | 01)
+    echo "Downloading Bash"
+    dl=bash-5.0.tar.gz
+    wget "http://ftp.gnu.org/gnu/bash/$dl" --no-check-certificate
+    mv $dl "$HOME/Downloads/$@"
+    echo "Bash has downloaded succesfully!"
+    sleep 2
+    clear
+    ;;
+  2 | 02)
+    mEcho "Downloading Nano" "red"
+    DL="nano-5.3"
+    EXTT=".tar.xz"
+    DLOC="$HOME/Downloads"
+    if [[ ! -d "$HOME/Downloads" ]]; then
+      mkdir -p "$HOME/Downloads"
+    fi
+    cd $DLOC
+    wget "http://ftp.gnu.org/gnu/nano/$DL$EXTT" --no-check-certificate
+    if [[ "$?" == "0" ]]; then
+      echo "$DL has downloaded succesfully!"
+      extract $DL$EXTT
+      gnu-build
+    fi
+    if [[ "$?" == "0" ]]; then
+      cd $DLOC
+      sudo rm -rf "$DL$EXTT"
+      sudo rm -rf "$(basename "$DL$EXTT" .tar.xz)"
+      echo "Succesfully Removed $DL TMP files!"
+    else
+      cd $DLOC
+      sudo rm -rf $DL$EXTT
+      sudo rm -rf "$(basename "$DL$EXTT" .tar.xz)"
+      echo "Problem Installing $DL!"
+    fi
+    sleep 2
+    clear
+    ;;
+  3 | 03)
+    echo "Downloading Ngnix"
+    dl=nginx-1.17.7.tar.gz
+    wget "https://nginx.org/download/$dl" --no-check-certificate
+    mv $dl "$HOME/Downloads/$@"
+    echo "Ngnix has downloaded succesfully!"
+    sleep 2
+    clear
+    ;;
+  4 | 04)
+    echo "Downloading HTTPD and Dependencies"
+    dl=httpd-2.4.46.tar.gz
+    wget "https://downloads.apache.org//httpd/$dl" --no-check-certificate
+    mv $dl "$HOME/Downloads/"
+    apr1=apr-1.7.0.tar.gz
+    apr2=apr-util-1.6.1.tar.gz
+    apr3=apr-iconv-1.2.2.tar.gz
+    wget "https://downloads.apache.org/apr/"$apr{1,2,3}"" --no-check-certificate
+    mv $dl "$HOME/Downloads/"
+    echo "All files to build HTTPD have been downloaded succesfully!"
+    sleep 2
+    clear
+    ;;
+  5 | 05)
+    echo "Downloading Coreutils"
+    dl='coreutils-8.31.tar.xz'
+    wget "http://ftp.gnu.org/gnu/coreutils/$dl" --no-check-certificate
+    mv $dl "$HOME/Downloads/$@"
+    echo "Coreutils has downloaded succesfully!"
+    sleep 2
+    clear
+    ;;
+  6 | 06)
+    echo "Downloading Binutils"
+    dl='binutils-2.33.1.tar.xz'
+    wget "https://ftp.gnu.org/gnu/binutils/$dl" --no-check-certificate
+    mv $dl "$HOME/Downloads/$@"
+    echo "Binutils has downloaded succesfully!"
+    sleep 2
+    clear
+    ;;
+  7 | 07)
+    echo "Downloading Texinfo"
+    dl=texinfo-6.7.tar.xz
+    wget "https://ftp.gnu.org/gnu/texinfo/$dl" --no-check-certificate
+    mv $dl "$HOME/Downloads/$@"
+    echo "Texinfo has downloaded succesfully!"
+    sleep 2
+    clear
+    ;;
+  8 | 08)
+    echo "Downloading less"
+    dl=less-530.tar.gz
+    wget "https://ftp.gnu.org/gnu/less/$dl" --no-check-certificate
+    mv $dl "$HOME/Downloads/$@"
+    echo "less has downloaded succesfully!"
+    sleep 2
+    clear
+    ;;
+  9 | 09)
+    echo "Downloading Gawk"
+    dl=gawk-5.0.1.tar.gz
+    wget "https://ftp.gnu.org/gnu/gawk/$dl" --no-check-certificate
+    mv $dl "$HOME/Downloads/$@"
+    echo "Gawk has downloaded succesfully!"
+    sleep 2
+    clear
+    ;;
+  10)
+    echo "Downloading Libtool"
+    dl=libtool-2.4.tar.xz
+    wget "http://ftp.gnu.org/gnu/libtool/$dl" --no-check-certificate
+    mv $dl "$HOME/Downloads/$@"
+    echo "Libtool has downloaded succesfully!"
+    sleep 2
+    clear
+    ;;
+  11)
+    echo "Downloading libextractor"
+    dl=libextractor-1.9.tar.gz
+    wget "https://ftp.gnu.org/gnu/libextractor/$dl" --no-check-certificate
+    mv $dl "$HOME/Downloads/$@"
+    echo "libextractor has downloaded succesfully!"
+    sleep 2
+    clear
+    ;;
+  12)
+    echo "Downloading libevnet"
+    dl=libevent-2.1.11-stable.tar.gz
+    wget "https://github.com/libevent/libevent/releases/download/release-2.1.11-stable/$dl" --no-check-certificate
+    mv $dl "$HOME/Downloads/$@"
+    echo "libevent has downloaded succesfully!"
+    sleep 2
+    clear
+    ;;
+  13)
+    echo "Downloading Qt 5 Online Installer"
+    dl=qt-unified-linux-x64-3.2.1-2-online.run
+    wget "http://qt.mirror.constant.com/archive/online_installers/3.2/$dl" --no-check-certificate
+    mv $dl "$HOME/Downloads/$@"
+    echo "Qt Installer has downloaded succesfully!"
+    sleep 2
+    clear
+    ;;
+  14)
+    echo "Downloading Editline libedit"
+    dl=libedit-20191231-3.1.tar.gz
+    wget "https://www.thrysoee.dk/editline/$dl" --no-check-certificate
+    mv $dl "$HOME/Downloads/$@"
+    echo "$dl has downloaded succesfully!"
+    sleep 2
+    clear
+    ;;
+  15)
+    echo "Downloading Make"
+    dl=make-4.3.tar.gz
+    wget "http://ftp.gnu.org/gnu/make/$dl" --no-check-certificate
+    mv $dl "$HOME/Downloads/$@"
+    echo "$dl has downloaded succesfully!"
+    sleep 2
+    clear
+    ;;
+  16)
+    DLDIR="$HOME/Downloads"
+    DL="LibreOffice_7.1.0_Linux_x86-64_deb.tar.gz"
+    DLX="LibreOffice_7.1.0_Linux_x86-64_deb.tar"
+    echo "Downloading LIBRE Office 6"
+    cd $DLDIR
+    axel -a -n 10 "https://ftp.osuosl.org/pub/tdf/libreoffice/stable/7.1.0/deb/x86_64/$DL"
+    if [[ "$?" == "0" ]]; then
+      7z x "$DL" && rm -rf "$DL"
+      7z x $DLX -oLibreOffice
+      cd $DLDIR/LibreOffice/**/DEBS
+      sudo apt install ./*.deb
+      if [[ "$?" == 0 ]]; then
+        rm -rf $DLDIR/LibreOffice
+      fi
+    fi
+    if [[ "$?" == "0" ]]; then
+      clear
+      echo "Libre Office has installed succesfully."
+    fi
+    sleep 1
+    exit 0
+    ;;
+  17)
+    echo "Downloading PHP"
+    dl="php-7.4.3.tar.gz"
+    wget "https://www.php.net/distributions/$dl" --no-check-certificate
+    mv $dl "$HOME/Downloads/$@"
+    echo "$dl has downloaded succesfully!"
+    sleep 2
+    clear
+    ;;
+  18)
+    echo "Downloading Bundle Coreutils Binutils and Texinfo"
+    BUNDLE=' http://ftp.gnu.org/gnu/binutils/binutils-2.34.tar.gz http://ftp.gnu.org/gnu/coreutils/coreutils-8.32.tar.gz http://ftp.gnu.org/gnu/texinfo/texinfo-6.7.tar.gz '
+    for bundle in $BUNDLE; do
+      wget $bundle --no-check-certificate
+      mv *.gz "$HOME/Downloads/"
+      echo "$@ had downloaded succesfully!"
+    done
+    sleep 2
+    clear
+    ;;
+  19)
+    curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | sudo apt-key add -
+    echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list &&
+      sudo apt-get update && sudo apt-get install spotify-client
+    sleep 2
+    clear
+    ;;
+  20)
+    set -e
+    VERSION="1.14"
+
+    [ -z "$GOROOT" ] && GOROOT="$HOME/.go"
+    [ -z "$GOPATH" ] && GOPATH="$HOME/go"
+
+    OS="$(uname -s)"
+    ARCH="$(uname -m)"
+
+    case $OS in
+    "Linux")
+      case $ARCH in
+      "x86_64")
+        ARCH=amd64
+        ;;
+      "armv6")
+        ARCH=armv6l
+        ;;
+      "armv8")
+        ARCH=arm64
+        ;;
+      .*386.*)
+        ARCH=386
+        ;;
+      esac
+      PLATFORM="linux-$ARCH"
+      ;;
+    "Darwin")
+      PLATFORM="darwin-amd64"
+      ;;
+    esac
+
+    print_help() {
+      echo "Usage: bash goinstall.sh OPTIONS"
+      echo -e "\nOPTIONS:"
+      echo -e "  --remove\tRemove currently installed version"
+      echo -e "  --version\tSpecify a version number to install"
+    }
+
+    if [ -n "$($SHELL -c 'echo $ZSH_VERSION')" ]; then
+      shell_profile="zshrc"
+    elif [ -n "$($SHELL -c 'echo $BASH_VERSION')" ]; then
+      shell_profile="bashrc"
+    fi
+
+    if [ "$1" == "--remove" ]; then
+      rm -rf "$GOROOT"
+      if [ "$OS" == "Darwin" ]; then
+        sed -i "" '/# GoLang/d' "$HOME/.${shell_profile}"
+        sed -i "" '/export GOROOT/d' "$HOME/.${shell_profile}"
+        sed -i "" '/$GOROOT\/bin/d' "$HOME/.${shell_profile}"
+        sed -i "" '/export GOPATH/d' "$HOME/.${shell_profile}"
+        sed -i "" '/$GOPATH\/bin/d' "$HOME/.${shell_profile}"
+      else
+        sed -i '/# GoLang/d' "$HOME/.${shell_profile}"
+        sed -i '/export GOROOT/d' "$HOME/.${shell_profile}"
+        sed -i '/$GOROOT\/bin/d' "$HOME/.${shell_profile}"
+        sed -i '/export GOPATH/d' "$HOME/.${shell_profile}"
+        sed -i '/$GOPATH\/bin/d' "$HOME/.${shell_profile}"
+      fi
+      echo "Go removed."
+      exit 0
+    elif [ "$1" == "--help" ]; then
+      print_help
+      exit 0
+    elif [ "$1" == "--version" ]; then
+      if [ -z "$2" ]; then # Check if --version has a second positional parameter
+        echo "Please provide a version number for: $1"
+      else
+        VERSION=$2
+      fi
+    elif [ ! -z "$1" ]; then
+      echo "Unrecognized option: $1"
+      exit 1
+    fi
+
+    if [ -d "$GOROOT" ]; then
+      echo "The Go install directory ($GOROOT) already exists. Exiting."
+      exit 1
+    fi
+
+    PACKAGE_NAME="go$VERSION.$PLATFORM.tar.gz"
+
+    echo "Downloading $PACKAGE_NAME ..."
+    if hash wget 2>/dev/null; then
+      wget https://storage.googleapis.com/golang/$PACKAGE_NAME -O /tmp/go.tar.gz
+    else
+      curl -o /tmp/go.tar.gz https://storage.googleapis.com/golang/$PACKAGE_NAME
+    fi
+
+    if [ $? -ne 0 ]; then
+      echo "Download failed! Exiting."
+      exit 1
+    fi
+
+    echo "Extracting File..."
+    mkdir -p "$GOROOT"
+    tar -C "$GOROOT" --strip-components=1 -xzf /tmp/go.tar.gz
+    #touch "$HOME/.${shell_profile}"
+    #{
+    #  echo '# GoLang'
+    #  echo "export GOROOT=${GOROOT}"
+    #  echo 'export PATH=$GOROOT/bin:$PATH'
+    #  echo "export GOPATH=$GOPATH"
+    #  echo 'export PATH=$GOPATH/bin:$PATH'
+    #} >>"$HOME/.${shell_profile}"
+
+    mkdir -p $GOPATH/{src,pkg,bin}
+    echo -e "\nGo $VERSION was installed into $GOROOT.\nMake sure to relogin into your shell or run:"
+    echo -e "\n\tsource $HOME/.${shell_profile}\n\nto update your environment variables."
+    echo "Tip: Opening a new terminal window usually just works. :)"
+    rm -f /tmp/go.tar.gz
+    sleep 2
+    clear
+    ;;
+  21)
+    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+    sudo apt update && sudo apt install yarn -y
+    sleep 2
+    clear
+    ;;
+  22)
+    sleep 2
+    clear
+    ;;
+  23)
+    DLDIR="$HOME/Downloads"
+    download_list() { # List Directories to Backup Here
+      cat <<EOF_LIST
+https://codeload.github.com/daniruiz/flat-remix/zip/master-icon
+https://github.com/daniruiz/flat-remix-gnome/archive/master-gnome
+https://github.com/daniruiz/flat-remix-gtk/archive/master-gtk
+      https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+EOF_LIST
+    }
+    cd "$DLDIR"
+    for i in $(download_list); do
+      wget "$i" --no-check-certificate
+    done
+    sleep 2
+    clear
+    ;;
+  24)
+    sudo apt update
+    sudo apt install linux-headers-$(uname -r) -y
+    ls -l /usr/src/linux-headers-$(uname -r)
+    if [ $? == 0 ]; then
+      echo "Succesfully Executed!"
+    else
+      echo "Problem Executing Command!"
+    fi
+    sleep 2
+    clear
+    ;;
+  25)
+    DLDIR="$HOME/Downloads"
+    cd $DLDIR
+    wget https://download.calibre-ebook.com/linux-installer.sh --no-check-certificate
+    cd $DLDIR
+    sudo chmod +rx linux-installer.sh
+    sudo ./linux-installer.sh
+    if [[ "$?" == 0 ]]; then echo "Calibre Installed Succesfully"; fi
+    sleep 2
+    clear
+    ;;
+  26)
+    DL1="libtool-2.4.6.tar.xz"
+    DL2="automake-1.16.3.tar.xz"
+    DL3="autoconf-2.70.tar.gz"
+    DL4="m4-1.4.18.tar.gz"
+    DLOC="$HOME/Downloads"
+    sudo apt install m4 -y
+    if [[ ! -d "$HOME/Downloads" ]]; then
+      mkdir -p "$HOME/Downloads"
+    fi
+    cd $DLOC
+    wget "http://ftp.gnu.org/gnu/$(basename "$DL1" -2.4.6.tar.xz)/$DL1" --no-check-certificate
+    wget "http://ftp.gnu.org/gnu/$(basename "$DL2" -1.16.3.tar.xz)/$DL2" --no-check-certificate
+    wget "http://ftp.gnu.org/gnu/$(basename "$DL3" -2.70.tar.gz)/$DL3" --no-check-certificate
+    wget "http://ftp.gnu.org/gnu/$(basename "$DL4" -1.4.18.tar.gz)/$DL3" --no-check-certificate
+
+    # Make sure to install m4 prior to automake
+    # Install M4
+    if [[ "$?" == "0" ]]; then cd $DLOC; fi
+    extract "$DL4"
+    gnu-build
+
+    # Make sure to install automake prior to autoconf
+    # Install Automake
+    if [[ "$?" == "0" ]]; then cd $DLOC; fi
+    extract "$DL3"
+    gnu-build
+
+    # Make sure to install autoconf prior to libtool
+    # Install Autoconf
+    if [[ "$?" == "0" ]]; then cd $DLOC; fi
+    extract "$DL2"
+    gnu-build
+
+    # Make sure libtool is in the last package to be installed
+    # Install Libtool
+    if [[ "$?" == "0" ]]; then cd $DLOC; fi
+    extract "$DL1"
+    gnu-build
+
+    # Fin
+    if [[ "$?" == "0" ]]; then
+      clear
+      cd $DLOC
+      sudo rm -rf "$DL1" "$DL2" "$DL3"
+      sudo rm -rf "$(basename "$DL3" -2.70.tar.gz)" "$(basename "$DL2" -1.16.3.tar.xz)" "$(basename "$DL1" -2.4.6.tar.xz)"
+      echo "Succesfully Installed "$DL{1..4}""
+      echo "All TMP FILES REMOVED!"
+    else
+      clear
+      cd $DLOC
+      sudo rm -rf "$DL1" "$DL2" "$DL3"
+      sudo rm -rf "$(basename "$DL3" -2.70.tar.gz)" "$(basename "$DL2" -1.16.3.tar.xz)" "$(basename "$DL1" -2.4.6.tar.xz)"
+      echo "There was a problem installing "$DL{1..4}""
+    fi
+    ;;
+  27)
+    cd "$HOME/Downloads"
+    wget "https://nodejs.org/dist/v14.15.3/node-v14.15.3-linux-x64.tar.xz"
+    if [[ -f node-v14.15.3-linux-x64.tar.xz ]]; then
+      extract node-v14.15.3-linux-x64.tar.xz
+      cd "$HOME/Downloads"
+      mv node-v14.15.3-linux-x64 "$HOME/bin/node"
+    fi
+    clear
+    ;;
+  28)
+    https://netactuate.dl.sourceforge.net/project/openmediavault/5.5.11/openmediavault_5.5.11-amd64.iso
+    sleep 2
+    clear
+    ;;
+  * | End | END)
+    echo "That program isn't on the list of available downloads"
+    echo "Run the function to try again.."
+    sleep 1
+    exit 0
+    ;;
+  esac
+}

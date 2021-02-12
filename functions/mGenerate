@@ -1,0 +1,83 @@
+#!/usr/bin/env bash
+#: Title          : generate-script
+#: Date           : 2019-28-10
+#: Author         : Rafael Baez
+#: Version        : 1.0
+#: Description    : A script that generates another script
+#: Options        : None
+# ------------------------------------------------------------------------------
+function generate-script() {
+	read -p "What would you like to name the script?" OUTFILE # Name of the file to generate.
+
+	# -----------------------------------------------------------
+	# Here document containing the body of the generated script.
+	(
+		cat <<'EOF'
+#!/usr/bin/env bash
+#: Title          :
+#: Date           :
+#: Author         : Rafael Baez
+#: Version        : 2.0
+#: Description    :
+#: Options        :
+# ------------------------------------------------------------------------------
+function help() {
+  echo "Usage: $(basename "$0") [OPTIONS] [arg ...]"
+  echo "--help                  Display help"
+  echo "--version               Display version of script"
+  echo "--print                 Print arguments"
+}
+function version() {
+  echo "Version of shell script application is 2.0"
+}
+function print() {
+  echo "Arguments are: $*"
+}
+# ------------------------------------------------------------------------------
+# Start putting your functions for the script under here.
+# ------------------------------------------------------------------------------
+
+
+
+
+# ------------------------------------------------------------------------------
+# Parsing command line arguments
+if [[ "$#" -eq 0 ]]; then
+  echo "No Paramater Supplied: Try Again!"
+elif [[ "$1" != "" ]]; then
+  case "$1" in
+  -h | --help | help)
+    help
+    exit 1
+    ;;
+  -v | --version | version)
+    version
+    exit 1
+    ;;
+  -p | --print | print)
+    print "$@"
+    exit 1
+    ;;
+  *)
+    echo "Unrecognized option: $*"
+    echo
+    help
+    exit 1
+    ;;
+  esac
+fi
+EOF
+	) >$OUTFILE
+	# -----------------------------------------------------------
+
+	#  Quoting the 'limit string' prevents variable expansion
+	#+ within the body of the above 'here document.'
+	#  This permits outputting literal strings in the output file.
+
+	if [ -f "$OUTFILE" ]; then
+		chmod a+x $OUTFILE && sudo mv $OUTFILE $HOME/bin
+		# Make the generated file executable.
+	else
+		echo "Problem in creating file: \"$OUTFILE\""
+	fi
+}

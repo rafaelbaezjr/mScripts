@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+# Title of script set
+TITLE="Miguel's Scripts"
+# mscripts
+function mScripts() {
+  echo "What function would you like to run?"
+  echo "Type Quit To Exit!"
+  read mCOMMAND
+  if [[ "$?" == "0" ]]; then
+    $mCOMMAND
+  else
+    echo "You are now exiting, thank you for using"
+    echo "$TITLE"
+    echo "Because there is always one more thing to do."
+    sleep 1
+    exit 0
+  fi
+}
+
+# Quit
+function mQuit() {
+  echo "Exiting ..."
+  sleep 2 && exit
+}
+
+# Import Functions
+function mImport() {
+  DIR="functions"
+  for FUNCTION in $(dirname "$0")/$DIR/*; do
+    if [[ -d "$FUNCTION" ]]; then
+      continue
+    elif [[ -f "$FUNCTION" ]]; then
+      . $FUNCTION
+    fi
+  done
+}
+
+# Import functions
+mImport
+clear
+
+# Welcome message
+mEcho "$TITLE" "teal"
+echo "-------------------------------------------------"
+echo "Compiled Number Of Personal Scripts && Functions."
+echo "Created by:            Miguel W. Cruz"
+echo "Inspired by:               Sam Hewitt"
+sleep 2
+clear
+
+# Start Scripts
+while :; do
+  mScripts
+done

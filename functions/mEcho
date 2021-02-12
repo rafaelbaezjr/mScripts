@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+#: Title          : mEcho
+#: Date           : 11.23.19
+#: Author         : Rafael Baez
+#: Version        : 1.0
+#: Description    : Give printf's output color
+#: Options        : == "<options>"
+# ------------------------------------------------------------------------------
+function mEcho() {
+
+	if [ "$2" == "red" ]; then
+		COLOR="31m" # red
+	elif [ "$2" == "green" ]; then
+		COLOR="32m" # green
+	elif [ "$2" == "gold" ]; then
+		COLOR="33m" # gold
+	elif [ "$2" == "blue" ]; then
+		COLOR="34m" # blue
+	elif [ "$2" == "purple" ]; then
+		COLOR="35m" # purple
+	elif [ "$2" == "teal" ]; then
+		COLOR="36m" # teal
+	elif [ "$2" == "grey" ]; then
+		COLOR="90m" # grey
+	elif [ "$2" == "brightred" ]; then
+		COLOR="91m" # brightred
+	elif [ "$2" == "brightgreen" ]; then
+		COLOR="92m" # brightgreen
+	elif [ "$2" == "brightyellow" ]; then
+		COLOR="93m" # brightyellow
+	elif [ "$2" == "darkblue" ]; then
+		COLOR="94m" # darkblue
+	elif [ "$2" == "magenta" ]; then
+		COLOR="95m" # magenta
+	elif [ "$2" == "brightteal" ]; then
+		COLOR="96m" # brightteal
+	elif [ "$2" == "brightgrey" ]; then
+		COLOR="97m" # brightgrey
+	else
+		COLOR="30m" # defualt
+	fi
+
+	local STARTCOLOR="\e[2;49;${COLOR}"
+	local ENDCOLOR="\e[0;33;39m"
+
+	echo -e "${STARTCOLOR}${1}${ENDCOLOR}"
+}
+
+function color_formats() {
+	#Background
+	for clbg in {40..47} {100..107} 49; do
+		#Foreground
+		for clfg in {30..37} {90..97} 39; do
+			#Formatting
+			for attr in 0 1 2 4 5 7; do
+				#Print the result
+				echo -en "\e[${attr};${clbg};${clfg}m ^[${attr};${clbg};${clfg}m \e[0m"
+			done
+			echo #Newline
+		done
+	done
+}

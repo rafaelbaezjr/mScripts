@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+#: Title          :
+#: Date           : 11.24.19
+#: Author         : Rafael Baez
+#: Version        : 1.0
+#: Description    :
+#: Options        :
+# ------------------------------------------------------------------------------
+function mBackup() {
+  mBackup_help() {
+    echo "USAGE: "mBackup" --OPTIONS"
+    echo "OPTIONS:"
+    echo -e "  --local \tBacks up to local Backup directory"
+    echo -e "  --remote \tBacks up to remote location"
+  }
+
+  _local() {
+    FILE="$(dirname "$0")/data/backup-dotfiles.list"
+    for i in $(cat $FILE); do
+      rsync -avrzHu --exclude="SX" $i "$(dirname "$0")/conf/dotfiles"
+    done
+  }
+
+  _remote() {
+    FILE="$(dirname "$0")/data/backup-dotfiles.list"
+    read -p "Remote IP: " RIP
+    for i in $(cat $FILE); do
+      rsync -avrzHu --exclude="SX" $i "$RIP:$HOME/Backup/$nyear/$nmonth"
+    done
+  }
+  # Parsing command line arguments
+  if [[ "$#" -eq "0" ]]; then
+    echo "No Paramater Supplied: Try Again!"
+  elif [[ "$1" != "" ]]; then
+    case "$1" in
+    --help)
+      mBackup_help
+      ;;
+    --home)
+      case "$2" in
+      remote)
+        _remote
+        ;;
+      local)
+        _local
+        ;;
+      *)
+        echo "Invalid Option: " $2 1>&2
+        echo "Try --help for more options." 1>&2
+        ;;
+      esac
+      ;;
+    *)
+      echo "Invalid Option: $1" 1>&2
+      echo "Try --help for more options." 1>&2
+      mscripts
+      ;;
+    esac
+  fi
+}

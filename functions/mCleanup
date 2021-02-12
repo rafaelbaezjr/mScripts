@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+#: Title          :
+#: Date           :
+#: Author         : Rafael Baez
+#: Version        : 1.0
+#: Description    :
+#: Options        :
+# ------------------------------------------------------------------------------
+function purge_unused() {
+	mEcho "Remove notebook // server extra packages?"
+	mEcho "Notebook or Server"
+	read OS
+	# Check list
+	LIST=$(dirname "$0")'/data/'${OS}'_purge.list'
+	for PKG in $(cat $LIST); do
+		if [[ $(check_install ${PKG}) != 0 ]]; then
+			mEcho "${PKG} isn't installed." "brightblue" && sleep 1
+		else
+			mEcho "${PKG} is being removed." "brightred"
+			sudo apt-get remove -y ${PKG} && clear # Admin privilege
+		fi
+	done
+}
+
+# Remove Leftover Config files
+function remove_leftovers() {
+	mEcho "Removing leftover files..." # Admin privileges
+	sudo apt autoremove -y
+	# Done
+	mEcho "Removal Complete." && clear
+}
+
+# Clean PKGs cache
+function clean_apt_cache() {
+	mEcho "Cleaning PKG cache..."
+	# Admin privileges
+	sudo apt clean
+	# Done
+	mEcho "PKG cache cleaned."
+}
+
+# Clean the cache under Root ##Super Clean Cache
+function clearcache1() {
+	# Note, we are using "echo 3", but it is not recommended in production instead use "echo 1"
+	echo "echo 1 > /proc/sys/vm/drop_caches"
+}

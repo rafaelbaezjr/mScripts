@@ -1,0 +1,88 @@
+#!/usr/bin/env bash
+#: Title          :
+#: Date           :
+#: Author         : Rafael Baez
+#: Version        : 2.0
+#: Description    :
+#: Options        :
+# ------------------------------------------------------------------------------
+function help() {
+  echo "Usage: $(basename "$0") [OPTIONS] [arg ...]"
+  echo "--help                  Display help"
+  echo "--version               Display version of script"
+  echo "--print                 Print arguments"
+}
+function version() {
+  echo "Version 3.0"
+}
+function print() {
+  echo "Arguments are: $*"
+}
+# ------------------------------------------------------------------------------
+# Variables
+# ------------------------------------------------------------------------------
+NDATE=$(date +%m.%d.%y)
+NMONTH=$(date +%B)
+NTIME=$(date +%X)
+NYEAR=$(date +%Y)
+JJRNL=""
+# ------------------------------------------------------------------------------
+# Start putting your functions for the script under here.
+# ------------------------------------------------------------------------------
+_entry() {
+  if [[ ! -d ${DIR:-"$JJRNL/$NYEAR/$NMONTH"} ]]; then
+    mkdir -p ${DIR:-"$JJRNL/$NYEAR/$NMONTH"}
+    cd ${DIR:-"$JRNLL/$NYEAR/$NMONTH"}
+    echo -e "--> $NTIME <<-- \n-->     <--" >>"$NDATE"
+    nano -$ "$NDATE"
+  else
+    cd ${DIR:-"$JJRNL/$NYEAR/$NMONTH"}
+    echo -e "--> $NTIME <<-- \n-->     <--" >>"$NDATE"
+    nano -$ "$NDATE"
+  fi
+}
+
+_update() {
+  :
+}
+
+# ------------------------------------------------------------------------------
+# Parsing command line arguments
+if [[ "$#" -eq 0 ]]; then
+  echo "No Paramater Supplied: Try Again!"
+elif [[ "$#" != "" ]]; then
+  case "$1" in
+  -h | --help | help)
+    help
+    exit 1
+    ;;
+  -v | --version | version)
+    version
+    exit 1
+    ;;
+  -p | --print | print)
+    print "$@"
+    exit 1
+    ;;
+  -new | "$2" | --new | "$2")
+    case "$2" in
+    entry)
+      _entry
+      ;;
+    update)
+      _update
+      ;;
+    *)
+      echo "Invalid Option: "$2"" 1>&2
+      echo "Try --help for more options." 1>&2
+      exit 1
+      ;;
+    esac
+    ;;
+  *)
+    echo -e "Invalid Option: "$@"" 1>&2
+    echo "Try --help for more options." 1>&2
+    exit 1
+    ;;
+  esac
+fi

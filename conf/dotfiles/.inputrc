@@ -1,0 +1,10 @@
+#-----------------------------------Original Settings---------------------------------
+set bell-style none
+## set bell-style visible
+
+## Very useful for the tab completion
+set completion-ignore-case On
+## It treats hyphens and underscores equally during the completion
+##set completion-map-case on
+##set show-all-if-ambiguous on
+
