@@ -13,7 +13,7 @@ function help() {
   echo "--print                 Print arguments"
 }
 function version() {
-  echo "Version 3.0"
+  echo "Version 3.1"
 }
 function print() {
   echo "Arguments are: $*"
@@ -29,6 +29,27 @@ JJRNL=$(cat $HOME/jjrnl.conf)
 # ------------------------------------------------------------------------------
 # Start putting your functions for the script under here.
 # ------------------------------------------------------------------------------
+if [[ ! -f $HOME/jjrnl.conf ]]; then
+  echo -e "Would you like to create a jjrnl configuration file?"
+  read ANSR
+  case $ANSR in
+  -Y | -y | -YES | -yes)
+    touch $HOME/jjrnl.conf
+    read -p "Enter root directory of the journal's folder: " JRD
+    echo $JRD >>$HOME/jjrnl.conf
+    ;;
+  -N | -n | -NO | -no | no | NO)
+    echo "You must specify journal location."
+    exit 1
+    ;;
+  *)
+    echo "Invalid Option: "$(echo $ANSR)"" 1>&2
+    echo "Try --help for more options." 1>&2
+    exit 1
+    ;;
+  esac
+fi
+
 _entry() {
   if [[ ! -d ${DIR:-"$JJRNL/$NYEAR/$NMONTH"} ]]; then
     mkdir -p ${DIR:-"$JJRNL/$NYEAR/$NMONTH"}
@@ -46,6 +67,9 @@ _update() {
   :
 }
 
+_topic() {
+  :
+}
 # ------------------------------------------------------------------------------
 # Parsing command line arguments
 if [[ "$#" -eq 0 ]]; then
