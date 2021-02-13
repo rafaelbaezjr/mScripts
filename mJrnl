@@ -25,7 +25,7 @@ NDATE=$(date +%m.%d.%y)
 NMONTH=$(date +%B)
 NTIME=$(date +%X)
 NYEAR=$(date +%Y)
-JJRNL=""
+JJRNL=$(cat $HOME/jjrnl.conf)
 # ------------------------------------------------------------------------------
 # Start putting your functions for the script under here.
 # ------------------------------------------------------------------------------
