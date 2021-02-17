@@ -1,0 +1,13 @@
+#!/bin/bash
+IFS=''
+i=1
+for url in $NEMO_SCRIPT_SELECTED_URIS
+do
+	if [ -n "`echo $url | grep 'file:///'`" ];then
+		/usr/share/ubuntu-tweak/script-worker open `echo "$NEMO_SCRIPT_SELECTED_FILE_PATHS" | cut -f$i -d'
+'` root &
+	else
+		/usr/share/ubuntu-tweak/script-worker open "$url" root &
+	fi
+	i=$(($i+1))
+done

@@ -1,0 +1,16 @@
+#!/bin/bash
+
+#put selected dirs in a temp file
+echo $NEMO_SCRIPT_SELECTED_URIS > ~/.gnome2/temp_7zbkp_list
+
+for dir in $(cat ~/.gnome2/temp_7zbkp_list); do
+	#avoid 7zibkping files
+	if [[ -f "$dir" ]]; then
+		echo "$0 only works with folders"
+		exit
+	fi
+	#backup selected dirs to individual archives
+	tar cf - $dir | 7za a -si $dir.tar.7z
+done
+
+#rm -f ~/temp/.temp_7zbkp_list

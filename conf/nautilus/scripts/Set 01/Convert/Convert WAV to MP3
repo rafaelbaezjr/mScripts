@@ -1,0 +1,13 @@
+#!/bin/bash
+#for f in ./*.wav; 
+for f in $MYMUSIC/*.wav
+do 
+	echo "File '$f'" >> $MYMUSIC/wavlist.txt; 
+	# or with printf
+	#printf "file '%s'\n" ./*.wav > mylist.txt
+	wavsongs=$MYMUSIC/wavlist.txt
+done
+
+ffmpeg -f concat -i $wavsongs -c copy ouput.wav
+
+

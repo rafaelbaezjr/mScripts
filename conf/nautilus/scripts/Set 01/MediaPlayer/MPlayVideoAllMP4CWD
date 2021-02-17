@@ -1,0 +1,7 @@
+#!/bin/bash
+terminator=$(which terminator)
+terminator -e 'mplayer -nolirc -noar -vf eq -vf-add screenshot -stop-xscreensaver -cache 2048 -msgcolor -osdlevel 3 -softvol -softvol-max 300 -volume 80 -volstep 5 -use-filename-title -shuffle -playlist <(find "$PWD" -type f -name "*.mp4")'
+
+# egrep -iz '\.(avi|mpg|mov|flv|wmv|asf|mpeg|m4v|divx|mp4|mkv)$'
+#find -regextype egrep -type f -iregex '.*\.(avi|mpg|mov|flv|wmv|asf|mpeg|m4v|divx|mp4|mkv)$' -follow -print0 | sort -z | tr '\0' '\n'
+

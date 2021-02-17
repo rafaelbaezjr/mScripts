@@ -1,0 +1,11 @@
+#!/bin/bash
+
+SUDO=''
+
+if (( $EUID != 0 ));
+	then
+		echo -e "Please run $0 as user root!!!\n"
+	SUDO='sudo'
+fi
+
+$SUDO chown daemon:daemon $NEMO_SCRIPT_SELECTED_FILE_PATHS

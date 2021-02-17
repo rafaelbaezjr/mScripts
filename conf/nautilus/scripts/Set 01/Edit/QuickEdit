@@ -1,0 +1,11 @@
+#!/bin/bash
+zOpenPath="$(zenity --file-selection)"
+#zOpenPath=$NAUTILUS_SCRIPT_SELECTED_FILE_PATHS
+if [ "$zOpenPath" != "" ]
+ then
+  zData=$(cat "$zOpenPath")
+  zNewData=$(echo -n "$zData" | zenity --text-info --editable --width 650 --height 400)
+  zSavePath=$(echo -n "$(zenity --file-selection --filename="$zOpenPath" --save --confirm-overwrite)")
+  echo -n "$zNewData" > "$zSavePath"
+fi
+

@@ -1,0 +1,29 @@
+#!/bin/bash
+#########################################################
+#							#
+# This are NScripts v3.6				#
+#							#
+# Licensed under the GNU GENERAL PUBLIC LICENSE 3	#
+#							#
+# Copyright 2007 - 2009 Christopher Bratusek		#
+#							#
+#########################################################
+
+file_name=$( echo $NEMO_SCRIPT_SELECTED_URIS | sed -e 's/file:\/\///g' -e 's/\%20/\ /g')
+
+gconftool-2 --set --type string  /desktop/gnome/background/picture_filename "$file_name"
+
+type=$(zenity --list --radiolist \
+--width="270" \
+--height="265" \
+--text "Wallpaper Type" \
+--title "Wallpaper Type" \
+--column "Pick" --column "Option" \
+FALSE none \
+FALSE wallpaper \
+FALSE centered \
+FALSE scaled \
+FALSE stretched \
+TRUE zoom )
+
+gconftool-2 --set --type string /desktop/gnome/background/picture_options "$type"

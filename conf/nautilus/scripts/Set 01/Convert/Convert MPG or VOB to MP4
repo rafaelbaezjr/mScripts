@@ -1,0 +1,35 @@
+#!/bin/bash
+mpgf=./mpg
+mp4f=./mp4
+mp4f1=../mp4
+	
+mkdir $mpgf
+mkdir $mp4f
+
+for i in *.mpg
+do
+	cp *.mpg $mpgf
+	cd $mpgf
+	
+	#echo -n "\033]0; Converting Maze.Runner.The.Scorch.Trials.2015.720p.HDRip (1/1)\007"
+	ffmpeg -threads 3  -y -i "$i" -f mp4 -r 29.97 -vcodec libx264 -b 1000k \
+	-aspect 16:9 -flags +loop -cmp +chroma -deblockalpha 0 -deblockbeta 0 \
+	-b 1250k -maxrate 1500k -bufsize 4M -bt 256k -refs 1 -bf 3 -coder 1 \
+	-me_method umh -me_range 16 -subq 7 \
+	-partitions +parti4x4+parti8x8+partp8x8+partb8x8 -g 250 -keyint_min 25 \
+	-level 30 -qmin 10 -qmax 51 -qcomp 0.6 -trellis 2 -sc_threshold 40 \
+	-i_qfactor 0.71 -b_strategy 2 -qdiff 4 -directpred 3 \
+	-flags2 +bpyramid+mixed_refs+wpred+dct8x8+fastpskip \
+	-wpredp 2 -rc_lookahead 50 -acodec libfaac -ab 112k \
+	-ar 48000 -ac 2 "${i%mpg}mp4"
+	
+#read -p "Press Enter to Continue" dumbyvar
+#rm "/home/thioshp/.winff/ff151205211031.sh"
+
+#FFMPEG ACTUAL COMMAND
+#/usr/bin/ffmpeg -threads 3 -y -i /media/STUFF/MOVIES2/Maze.Runner.The.Scorch.Trials.2015.720p.HDRip.mpg -f mp4 -r 29.97 -vcodec libx264 -b 1000k -aspect 16:9 -flags +loop -cmp +chroma -deblockalpha 0 -deblockbeta 0 -b 1250k -maxrate 1500k -bufsize 4M -bt 256k -refs 1 -bf 3 -coder 1 -me_method umh -me_range 16 -subq 7 -partitions +parti4x4+parti8x8+partp8x8+partb8x8 -g 250 -keyint_min 25 -level 30 -qmin 10 -qmax 51 -qcomp 0.6 -trellis 2 -sc_threshold 40 -i_qfactor 0.71 -b_strategy 2 -qdiff 4 -directpred 3 -flags2 +bpyramid+mixed_refs+wpred+dct8x8+fastpskip -wpredp 2 -rc_lookahead 50 -acodec libfaac -ab 112k -ar 48000 -ac 2 /media/STUFF/CONVERTS/Maze.Runner.The.Scorch.Trials.2015.720p.HDRip.mp4
+done
+
+mv *.mp4 $mp4f1
+#rm -R ./mpg
+notify-send "MP4 files successfully created...see them in $mp4f1"

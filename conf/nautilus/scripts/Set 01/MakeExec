@@ -1,0 +1,4 @@
+#!/bin/bash
+#xf=$(which execf)
+
+chmod +x $NEMO_SCRIPT_SELECTED_FILE_PATHS

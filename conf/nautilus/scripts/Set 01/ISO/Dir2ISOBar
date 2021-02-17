@@ -1,0 +1,15 @@
+#!/bin/bash
+for uri in $NAUTILUS_SCRIPT_SELECTED_URIS;
+do
+	/usr/bin/notify-send "ISO file `basename ${uri:7}`.iso will be created"
+	
+    (xorrisofs -R -J -o "`basename ${uri:7}`.iso" "${uri:7}" 2>&1) | \
+    zenity --progress \
+    	--pulsate \
+    	--title="Creating `basename ${uri:7}`.iso From `basename ${uri:7}`" \
+        --text="Creating `basename ${uri:7}`.iso...please wait..." \
+        --width=500 \
+        --height=100 \
+          
+    /usr/bin/notify-send "ISO file `basename ${uri:7}`.iso has been created"
+done

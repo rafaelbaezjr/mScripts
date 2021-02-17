@@ -1,0 +1,30 @@
+#!/bin/bash
+
+basedir="`echo $NEMO_SCRIPT_CURRENT_URI | cut -d'/' -f3- | sed 's/%20/ /g'`"
+FILENAME="$basedir/$1"
+#zen=zenity --text-info --width 500
+#exec1=md5sum $basedir
+
+#fname="$(stat -c%n "$FILENAME")"
+## Same as ""$FILENAME"" of course
+#fowner="$(stat -c%U "$FILENAME")"
+#fsize="$(stat -c%s "$FILENAME")"
+## Certainly easier than using "ls -l "$FILENAME""
+### and then parsing with sed
+#finode="$(stat -c%i "$FILENAME")"
+#ftype="$(file "$FILENAME")"
+#faccess_rights="$(stat -c%a "$FILENAME")"
+#faccess_rights2="$(stat -c%A "$FILENAME")"
+#fgid="$(stat -c%g "$FILENAME")"
+#fgrn="$(stat -c%G "$FILENAME")"
+#flast="$(stat -c%x "$FILENAME")"
+#fmod="$(stat -c%y "$FILENAME")"
+md5f="$(md5sum "$FILENAME")"
+sha1f="$(sha1sum "$FILENAME")"
+
+WindowTitle="ISO File Info"
+Message="\nMD5 Sum:\t\t"$md5f"\nSHA1 Sum:\t\t"$sha1f""
+
+#$md5f;$sha1f | $(zenity --progress --pulsate)
+
+$(zenity --info --title "$WindowTitle" --text "$Message");

@@ -1,0 +1,3 @@
+#!/bin/bash
+terminator=$(which terminator)
+terminator -e "mplayer -nolirc -noar -msgcolor -osdlevel 3 -volume 100 -volstep 5 -use-filename-title -shuffle -playlist <(find "$PWD" -type f -follow)"

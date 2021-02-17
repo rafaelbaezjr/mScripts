@@ -1,0 +1,29 @@
+#!/bin/bash
+
+#vidfile=$(zenity --file-selection --title="Select Video File");
+#savemp3=$(zenity --directory --title="Save MP3 File Here");
+#mp3fname= "converted-song.mp3"
+
+#ffmpeg -i $vidfile -vn -ar 44100 -ac 2 -ab 128k -f mp3 file.mp3
+
+#echo "file.mp3 created successfully"
+
+# Script for batch conversion of MKV files to MP3 files
+# Place all MKV files in a single folder
+# Copy this file to the same folder as the MP4 files
+# Save then close this file
+# Make this script executable
+## In terminal, chmod +x mp42mp3.sh
+# Run this script in terminal as follows:
+## ./mkv2mp3.sh
+### NB: the 128k could be changed to 256k, 192k, 320k etc
+
+# selected files MUST be MP4 files!!!
+MP4FILES="NEMO_SCRIPT_SELECTED_URIS"
+
+for i in $MP4FILES
+do
+	terminator -e "ffmpeg -i \"$i\" -vn -ar 44100 -ac 2 -ab 320k -f mp3 \"${i%mp4}mp3\""
+done
+
+

@@ -1,0 +1,29 @@
+#!/bin/bash
+# backup directories into .tar.7z
+
+APPLICATION1="7za"
+APPLICATION2="tar"
+CURDATE=$(date +%m-%d-%Y--%T)
+TITLE="Error"
+MESSAGE="Could not find the $APPLICATION executable."
+basedir="`echo $NEMO_SCRIPT_CURRENT_URI | cut -d'/' -f3- | sed 's/%20/ /g'`"
+
+if which 7za 2> /dev/null && if which tar 2> /dev/null
+then
+	7za x -so "$@" | tar xf -   
+else
+	# Show an error message
+	if which nautilus-error-dialog; then
+		nautilus-error-dialog --title "$TITLE" --message "$MESSAGE"
+	elif which gdialog; then
+		gdialog --title "$TITLE" --msgbox "$MESSAGE" 20 100
+	elif which kdialog; then
+		kdialog --title "$TITLE" --msgbox "$MESSAGE"
+	elif which gxmessage; then
+		gxmessage -buttons OK -title "$TITLE" "$MESSAGE"
+	elif which xmessage; then
+		xmessage -buttons OK -title "$TITLE" "$MESSAGE"
+	fi
+fi
+
+

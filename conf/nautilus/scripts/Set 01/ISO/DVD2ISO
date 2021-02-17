@@ -1,0 +1,11 @@
+#!/bin/bash
+## generate an ISO from /dev/sr0
+#echo -n "File name for ISO image (eg cdName.iso): "
+#read -e isoName
+isoName=/media/BACKUPS/DVDISO.iso
+echo "Image saved in file://$isoName"
+echo "Please wait, reading disk..."
+
+dd if=/dev/sr0 of=$isoName
+
+zenity --info --text "ISO image $isoName has been successfuly created...."

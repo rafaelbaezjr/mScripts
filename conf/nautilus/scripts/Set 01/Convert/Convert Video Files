@@ -1,0 +1,64 @@
+#!/bin/bash
+#constants
+WindowTitle="Video Transcoder By @thioshp"
+MessageIntro="Video Transcoder version 1.0 2015.\nThis is a video converter program by @thioshp\nIt simply converts the video from one format to another while maintaining the quality of both sound and video.\nClick OK below to proceed."
+MessageSelectFile="Please select the video file you wish to transcode:"
+MessageSelectFormat="Select output format"
+MessageSelectFormatVerbose="Please select the format you wish to transcode your video into"
+MessageEnterFilename="Enter output filename"
+MessageEnterFilenameVerbose="Enter output filename PLUS the file extension, ie. Shaun Of The Dead.mp4"
+MessageSelectDirectory="Select destination directory"
+MessageProgressTitle="Please wait while your video file is being converted..."
+MessageComplete="Your video file has been transcoded"
+
+
+$(zenity --info --title "$WindowTitle" --width 100 --text "$MessageIntro");
+
+if [ $? = 1 ];
+then exit
+fi
+
+SourceFile=$(zenity --file-selection --title "$WindowTitle" --width 500 --text "$MessageSelectFile" );
+
+echo "Source: $SourceFile"
+if [ $? = 1 ];
+then exit
+fi
+
+OutputFormat=$(zenity --title "$WindowTitle | $MessageSelectFormat" --width 500 --list --text "$MessageSelectFormatVerbose" --radiolist --column "Select" --column "Output format" TRUE mp4 FALSE mkv FALSE wmv FALSE flv);
+echo "Format: $OutputFormat"
+
+if [ $? = 1 ];
+then exit
+fi
+
+OutputFilename=$(zenity --title "$WindowTitle | $MessageEnterFilename" --width 500 --entry --text "$MessageEnterFilenameVerbose");
+
+#OutputFilename=`echo "$OutputFilename.$OutputFormat" | awk '{$1=$1}1' OFS="_"`
+
+echo "Filename: $OutputFilename"
+if [ $? = 1 ];
+then exit
+fi
+
+Directory=$(zenity --title "$WindowTitle | $MessageSelectDirectory" --width 500 --file-selection --directory);
+echo "Directory: $Directory"
+if [ $? = 1 ];
+then exit
+fi
+
+ffmpeg -vcodec copy -acodec copy -i "$SourceFile" "$Directory/$OutputFilename" 2>&1 | zenity --width 500 --title "$WindowTitle | $MessageProgressTitle" --text "$MessageProgress" --progress --pulsate --auto-close
+
+echo "Command: ffmpeg -vcodec copy -acodec copy -i "$SourceFile" "$Directory/$OutputFilename""
+if [ $? = 1 ];
+then exit
+fi
+
+zenity --info --title "$WindowTitle" --text "$MessageComplete"
+echo "Done"
+exit
+
+
+
+
+

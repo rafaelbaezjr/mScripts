@@ -1,0 +1,24 @@
+#!/bin/bash
+#2ex="/home/thioshp/.gnome2/nautilus-scripts/ISO/Dir2ISO"
+#gnome-terminal -e $2ex
+
+echo -n "Enter name of ISO image to be created (eg cdName.iso): "
+read -e isoName
+
+echo -n "What is(are) the directory path(s) you want to archive into an ISO? (eg Dir1, Dir2...): "
+read -e dirName
+
+#mkisofs -o $isoName $dirName
+xorrisofs -R -J -o $isoName $dirName
+echo "Image saved in file://$isoName"
+
+echo -n "Do you wish to delete the source folder/directory? y/n"
+read -e delsrc
+
+if ($delsrc == "y")
+{
+	rm -R $delsrc;
+	echo "Source folder $delsrc has been deleted";
+}
+fi
+

@@ -1,0 +1,8 @@
+#!/bin/bash
+#script via TheeMahn
+for I in `echo $*`
+do
+  foo=`gksudo -u root -k -m "enter your password for root terminal
+access" /bin/echo "got r00t?"`
+sudo umount /media/ISO2
+done

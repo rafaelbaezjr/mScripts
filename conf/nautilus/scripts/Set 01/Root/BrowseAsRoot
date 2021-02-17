@@ -1,0 +1,3 @@
+#!/bin/bash
+
+gksudo NEMO $NEMO_SCRIPT_CURRENT_URI

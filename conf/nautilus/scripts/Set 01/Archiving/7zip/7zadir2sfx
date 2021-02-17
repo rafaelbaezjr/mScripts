@@ -1,0 +1,4 @@
+#!/bin/bash_aliases
+
+#add all files from directory "dir1" to SFX archive archive.exe (Remark : SFX archive MUST end with ".exe")
+ 7z a -sfx $1.exe $1
