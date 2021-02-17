@@ -72,7 +72,7 @@ buffer_size = 7120
 # By default some status messages about the download are printed. You can
 # disable this by setting this one to zero.
 #
-# verbose = 1
+verbose = 0
 
 # FTP searcher
 #
