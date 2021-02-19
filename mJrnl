@@ -72,13 +72,13 @@ _topic() {
   : '* Write a func to check for a file made day of &&
      if file exits open that file.
 '
-  if [[ ! -d ${DIR:-"$JJRNL/$NYEAR/Topic"} ]]; then
-    mkdir -p ${DIR:-"$JJRNL/$NYEAR/Topic"}
-    cd ${DIR:-"$JRNLL/$NYEAR/Topic"}
+  if [[ ! -d ${DIR:-"$JJRNL/$NYEAR/Topics"} ]]; then
+    mkdir -p ${DIR:-"$JJRNL/$NYEAR/Topics"}
+    cd ${DIR:-"$JRNLL/$NYEAR/Topics"}
     echo -e "--> $TNAME.$NDATE <<-- \n-->     <--" >>"$TNAME.$NDATE"
     nano -$ "$TNAME.$NDATE"
   else
-    cd ${DIR:-"$JJRNL/$NYEAR/Topic"}
+    cd ${DIR:-"$JJRNL/$NYEAR/Topics"}
     echo -e "--> $TNAME.$NTIME <<-- \n-->     <--" >>"$TNAME.$NDATE"
     nano -$ "$TNAME.$NDATE"
   fi
@@ -89,13 +89,13 @@ _concept() {
   : '* Write a func to check for a file made day of &&
        if file exits open that file.
   '
-  if [[ ! -d ${DIR:-"$JJRNL/$NYEAR/Concept"} ]]; then
-    mkdir -p ${DIR:-"$JJRNL/$NYEAR/Concept"}
-    cd ${DIR:-"$JRNLL/$NYEAR/Concept"}
+  if [[ ! -d ${DIR:-"$JJRNL/$NYEAR/Concepts"} ]]; then
+    mkdir -p ${DIR:-"$JJRNL/$NYEAR/Concepts"}
+    cd ${DIR:-"$JRNLL/$NYEAR/Concepts"}
     echo -e "--> $CCNAME.$NTIME <<-- \n-->     <--" >>"$CCNAME.$NDATE"
     nano -$ "$CCNAME.$NDATE"
   else
-    cd ${DIR:-"$JJRNL/$NYEAR/Concept"}
+    cd ${DIR:-"$JJRNL/$NYEAR/Concepts"}
     echo -e "--> $CCNAME.$NTIME <<-- \n-->     <--" >>"$CCNAME.$NDATE"
     nano -$ "$CCNAME.$NDATE"
   fi
