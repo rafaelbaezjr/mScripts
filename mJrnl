@@ -30,7 +30,7 @@ JJRNL=$(cat $HOME/jjrnl.conf)
 # Start putting your functions for the script under here.
 # ------------------------------------------------------------------------------
 if [[ ! -f $HOME/jjrnl.conf ]]; then
-  echo -e "Would you like to create a jjrnl configuration file?"
+  echo -e "Would you like to create a configuration file?"
   read ANSR
   case $ANSR in
   -Y | -y | -YES | -yes)
@@ -68,7 +68,37 @@ _update() {
 }
 
 _topic() {
-  :
+  read -p "Topic Name:  " TNAME
+  : '* Write a func to check for a file made day of &&
+     if file exits open that file.
+'
+  if [[ ! -d ${DIR:-"$JJRNL/$NYEAR/Topic"} ]]; then
+    mkdir -p ${DIR:-"$JJRNL/$NYEAR/Topic"}
+    cd ${DIR:-"$JRNLL/$NYEAR/Topic"}
+    echo -e "--> $TNAME.$NDATE <<-- \n-->     <--" >>"$TNAME.$NDATE"
+    nano -$ "$TNAME.$NDATE"
+  else
+    cd ${DIR:-"$JJRNL/$NYEAR/Topic"}
+    echo -e "--> $TNAME.$NTIME <<-- \n-->     <--" >>"$TNAME.$NDATE"
+    nano -$ "$TNAME.$NDATE"
+  fi
+}
+
+_concept() {
+  read -p "Concept Name:  " CCNAME
+  : '* Write a func to check for a file made day of &&
+       if file exits open that file.
+  '
+  if [[ ! -d ${DIR:-"$JJRNL/$NYEAR/Concept"} ]]; then
+    mkdir -p ${DIR:-"$JJRNL/$NYEAR/Concept"}
+    cd ${DIR:-"$JRNLL/$NYEAR/Concept"}
+    echo -e "--> $CCNAME.$NTIME <<-- \n-->     <--" >>"$CCNAME.$NDATE"
+    nano -$ "$CCNAME.$NDATE"
+  else
+    cd ${DIR:-"$JJRNL/$NYEAR/Concept"}
+    echo -e "--> $CCNAME.$NTIME <<-- \n-->     <--" >>"$CCNAME.$NDATE"
+    nano -$ "$CCNAME.$NDATE"
+  fi
 }
 # ------------------------------------------------------------------------------
 # Parsing command line arguments
@@ -95,6 +125,12 @@ elif [[ "$#" != "" ]]; then
       ;;
     update)
       _update
+      ;;
+    topic)
+      _topic
+      ;;
+    concept)
+      _concept
       ;;
     *)
       echo "Invalid Option: "$2"" 1>&2
