@@ -54,11 +54,11 @@ _entry() {
   if [[ ! -d ${DIR:-"$JJRNL/$NYEAR/$NMONTH"} ]]; then
     mkdir -p ${DIR:-"$JJRNL/$NYEAR/$NMONTH"}
     cd ${DIR:-"$JRNLL/$NYEAR/$NMONTH"}
-    echo -e "--> $NTIME <<-- \n-->     <--" >>"$NDATE"
+    echo -e "--> <-- \n -->> $NTIME <<-- \n-->     <--" >>"$NDATE"
     nano -$ "$NDATE"
   else
     cd ${DIR:-"$JJRNL/$NYEAR/$NMONTH"}
-    echo -e "--> $NTIME <<-- \n-->     <--" >>"$NDATE"
+    echo -e "--> <-- \n -->> $NTIME <<-- \n-->     <--" >>"$NDATE"
     nano -$ "$NDATE"
   fi
 }
@@ -133,8 +133,12 @@ elif [[ "$#" != "" ]]; then
       _concept
       ;;
     *)
-      echo "Invalid Option: "$2"" 1>&2
-      echo "Try --help for more options." 1>&2
+      if [[ $2 == "" ]]; then
+        echo "No Paramater Supplied: Try Again!"
+      else
+        echo "Invalid Option: "$2"" 1>&2
+        echo "Try --help for more options." 1>&2
+      fi
       exit 1
       ;;
     esac
