@@ -10,15 +10,25 @@ function mSoftware() {
   echo "#======================================================================"
   echo "# Software Avaliable for Download."
   echo "#======================================================================"
-  echo "01. Bash              02. Nano                   19. Spotify"
-  echo "03. Nginx             04. Httpd with ARP         20. GO Language"
-  echo "05. Coreutils         06. Binutils               21. Yarn"
-  echo "07. Texinfo           08. Less                   22. Android ADB"
-  echo "09. Gawk              10. Libtool                23. Theme: Flat-Remix"
-  echo "11. Lib libextractor  12. Lib libevent           24. Kernels Update"
-  echo "13. Qt 5 Installer    14. Line Edit, libedit     25. Calibre"
-  echo "15. GNU MAKE          16. LibreOffice 6          26. Automake Autoconf Libtool"
-  echo "17. PHP               18. Core Bin Texinfo Utils 27. NODE NPM NPV"
+  echo "01. Bash              02. Nano
+  19. Spotify"
+  echo "03. Nginx             04. Httpd with ARP
+  20. GO Language"
+  echo "05. Coreutils         06. Binutils
+  21. Yarn"
+  echo "07. Texinfo           08. Less
+  22. Android ADB"
+  echo "09. Gawk              10. Libtool
+  23. Theme: Flat-Remix"
+  echo "11. Lib libextractor  12. Lib libevent
+  24. Kernels Update"
+  echo "13. Qt 5 Installer    14. Line Edit, libedit
+  25. Calibre"
+  echo "15. GNU MAKE          16. LibreOffice 6
+  26. Automake Autoconf Libtool"
+  echo "17. PHP               18. Core Bin Texinfo Utils
+  27. NODE NPM NPV"
+  echo ""
   echo "Enter an astrick (*) to exit."
 
   read reply
@@ -469,6 +479,12 @@ EOF_LIST
   28)
     https://netactuate.dl.sourceforge.net/project/openmediavault/5.5.11/openmediavault_5.5.11-amd64.iso
     sleep 2
+    clear
+    ;;
+  29)
+    sudo add-apt-repository ppa:obsproject/obs-studio
+    sudo apt update
+    sudo apt install obs-studio
     clear
     ;;
   * | End | END)
