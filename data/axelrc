@@ -7,7 +7,7 @@
 # reconnect_delay sets the number of seconds before trying again to build
 # a new connection to the server.
 #
-# reconnect_delay = 20
+reconnect_delay = 20
 
 # You can set a maximum speed (bytes per second) here, Axel will try to be
 # at most 5% faster or 5% slower.
@@ -19,12 +19,12 @@
 # high requires recompilation. PLEASE respect FTP server operators and other
 # users: Don't set this one too high!!! 4 is enough in most cases.
 #
-num_connections = 10
+num_connections = 9
 
 # If no data comes from a connection for this number of seconds, abort (and
 # resume) the connection.
 #
-# connection_timeout = 45
+connection_timeout = 25
 
 # Set proxies. no_proxy is a comma-separated list of domains which are
 # local, axel won't use any proxy for them. You don't have to specify full
@@ -67,7 +67,7 @@ num_connections = 10
 # A smaller buffer might improve the accuracy of the speed limiter, but a
 # larger buffer is a better choice for fast connections.
 #
-buffer_size = 7120
+buffer_size = 8120
 
 # By default some status messages about the download are printed. You can
 # disable this by setting this one to zero.
