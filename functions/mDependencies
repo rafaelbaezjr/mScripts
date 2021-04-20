@@ -1,43 +1,44 @@
 #!/usr/bin/env bash
 # Check dpkg for package installation status
 
-function mDlist() {
-  mEcho "Which list would you like to go through: " "teal"
-  mEcho "Notebook ; Server" "red"
-  read listname
-  # Check list
-  LIST=$(dirname "$0")"/data/${listname}_dependencies.list"
-  for PACKAGE in $(cat $LIST); do
-    if [[ $(check_install $PACKAGE) == 1 ]]; then
-      sudo apt install -y $PACKAGE
-      echo "$PACKAGE installed."
-    fi
-  done
-}
-
-# Check for and install if missing the required packages for this script set.
-function mDlists() {
-  mEcho "Which list would you like to go through: " "teal"
-  mEcho "Notebook ; Server" "red"
-  read listname
-  LIST=$(dirname "$0")"/data/${listname}_dependencies.list"
-  for i in $(cat $LIST); do
-    if [ $(check_install $i) == 1 ]; then
-      read -p "Install $i:	Yes | No" ANSWER
-      case $ANSWER in
-      Y | y | Yes | yes)
-        sudo apt install $i -y
-        if [[ "$?" == "0" ]]; then echo "$i installation complete."; fi
-        ;;
-      N | n | No | no)
-        echo "Skipping $i installation"
-        ;;
-      *)
-        echo "Invalid Option: "$(basename "$0")" requires an argument" 1>&2
-        echo "Try --help for more options." 1>&2
-        exit 1
-        ;;
-      esac
-    fi
-  done
+function mDependencies() {
+  if [[ "$@" == "" ]]; then
+    echo "No Input!"
+  elif [[ "$@" == "--fast" ]]; then
+    mEcho "Which list would you like to go through: " "teal"
+    mEcho "Notebook ; Server" "red"
+    read listname
+    # Check list
+    LIST=$(dirname "$0")"/data/${listname}_dependencies.list"
+    for PACKAGE in $(cat $LIST); do
+      if [[ $(check_install $PACKAGE) == 1 ]]; then
+        sudo apt install -y $PACKAGE
+        echo "$PACKAGE installed."
+      fi
+    done
+  elif [[ "$1" == "--install list" ]]; then
+    mEcho "Which list would you like to go through: " "teal"
+    mEcho "Notebook ; Server" "red"
+    read listname
+    LIST=$(dirname "$0")"/data/${listname}_dependencies.list"
+    for i in $(cat $LIST); do
+      if [ $(check_install $i) == 1 ]; then
+        read -p "Install $i:	Yes | No" ANSWER
+        case $ANSWER in
+        Y | y | Yes | yes)
+          sudo apt install $i -y
+          if [[ "$?" == "0" ]]; then echo "$i installation complete."; fi
+          ;;
+        N | n | No | no)
+          echo "Skipping $i installation"
+          ;;
+        *)
+          echo "Invalid Option: "$(basename "$0")" requires an argument" 1>&2
+          echo "Try --help for more options." 1>&2
+          exit 1
+          ;;
+        esac
+      fi
+    done
+  fi
 }

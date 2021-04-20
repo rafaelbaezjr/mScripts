@@ -49,3 +49,5 @@ wireless-tools
 wireshark
 xml2
 zlib1g-dev
+build-essential
+mesa-common-dev
